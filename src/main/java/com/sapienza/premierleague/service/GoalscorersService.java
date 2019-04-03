@@ -1,6 +1,7 @@
 package com.sapienza.premierleague.service;
 
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.http.HttpEntity;
@@ -31,11 +32,24 @@ public class GoalscorersService {
 
 		JSONParser parser = new JSONParser();
 		Object obj = parser.parse(requestJson.getBody());
-		JSONArray array = (JSONArray) obj;
+		JSONObject jsonObject = (JSONObject) obj;
+		JSONArray array = (JSONArray) jsonObject.get("scorers");
 		List<GoalscorerDTO> goalscorersList = new ArrayList<>();
+		
 		for (int i = 0; i < array.size(); i++) {
-			goalscorersList.add(GoalscorerDTO.builder().name(array.get(17).toString())
-					.goals(Integer.valueOf(array.get(28).toString())).build());
+			Object fields = parser.parse(array.get(i).toString());
+			JSONObject jsonObject2 = (JSONObject) fields;
+			
+			Object player = jsonObject2.get("player");
+			JSONObject jsonObject3 = (JSONObject) player;
+			String playerName = (String) jsonObject3.get("name");
+			
+			Object team = jsonObject2.get("team");
+			JSONObject jsonObject4 = (JSONObject) team;
+			String teamName = (String) jsonObject4.get("name");
+			
+			long numberOfGoals = (long) jsonObject2.get("numberOfGoals");
+			goalscorersList.add(GoalscorerDTO.builder().name(playerName).teamName(teamName).goals(numberOfGoals).build());
 		}
 
 		return goalscorersList;

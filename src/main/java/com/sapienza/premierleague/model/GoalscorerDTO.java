@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class GoalscorerDTO {
 
 	private String name;
-	private int goals;
+	private String teamName;
+	private long goals;
 	
 }
