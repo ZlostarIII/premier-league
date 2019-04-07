@@ -2,76 +2,60 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Liverpool FC statistics</title>
 </head>
 <link rel="stylesheet" type="text/css" media="all"
 	href="../../../css/style.css" th:href="@{/css/style.css}" />
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
-<script>
-	var app = angular.module('myApp', []);
-	app.controller('StatisticsCtrl', function($scope, $http) {
-		$http.get("http://localhost:8080/plgoalscorers").then(
-				function(response) {
-					$scope.myData = response.data;
-				});
-	});
-	app.directive('barsChart', function($parse, $timeout, $compile) {
-		var tooltip = d3.select("body").append("div").style("position",
-				"absolute").style("z-index", "10")
-				.style("visibility", "hidden");
-
-		var directiveDefinitionObject = {
-			restrict : 'E',
-			replace : false,
-			scope : {
-				data : '=chartData'
-			},
-			link : function(scope, element, attrs) {
-				$timeout(function() {
-					var chart = d3.select(element[0]);
-					chart.append("div").attr("class", "chart").selectAll('div')
-							.data(scope.data).enter().append("div").on(
-									"mouseover",
-									function(d) {
-										return tooltip.style("visibility",
-												"visible").style("font-weight",
-												"bold").style("background",
-												"lightblue").style(
-												"border-radius", "5px").style(
-												"font-family", "arial").style(
-												"font-size", "12px").text(
-												d.goals + " goals");
-									}).on(
-									"mousemove",
-									function() {
-										return tooltip.style("top",
-												(event.pageY - 10) + "px")
-												.style(
-														"left",
-														(event.pageX + 10)
-																+ "px");
-									}).on("mouseout", function() {
-								return tooltip.style("visibility", "hidden");
-							}).transition().ease("elastic").style("width",
-									function(d) {
-										return d.goals + "%";
-									}).text(function(d) {
-								return d.name;
-							});
-				}, 2000);
-			}
-		};
-		return directiveDefinitionObject;
-	});
-</script>
+<script src="../js/statistics.js" charset="utf-8"></script>
 <body>
-	<div ng-app="myApp" ng-controller="StatisticsCtrl">
-		<ul>
-			<li ng-repeat="x in myData">{{ x.name + ' - '+ x.teamName }}</li>
-		</ul>
-		<bars-chart chart-data="myData"></bars-chart>
+	<div>
+		<a href="home">Home</a>
+	</div>
+	<br>
+	<div ng-app="statistics" ng-controller="LiverpoolStatsCtrl">
+		<label>Liverpool FC Premier league statistics</label>
+		<table>
+			<tr>
+				<th>Match day</th>
+				<th>Date</th>
+				<th>Game</th>
+				<th>Result</th>
+				<th>Outcome</th>
+			</tr>
+			<tr ng-repeat="x in plData">
+				<td>{{ x.matchday }}</td>
+				<td>{{ x.matchDate.split('T')[0] }}</td>
+				<td>{{ x.host ? ('Liverpool FC - ' + x.opponent) : (x.opponent
+					+ ' - Liverpool FC') }}</td>
+				<td>{{ x.homeTeamScore + ' - ' + x.awayTeamScore }}</td>
+				<td>{{ x.outcome }}</td>
+			</tr>
+		</table>
+		<pie-chart chart-data="plData"></pie-chart>
+		<br>
+		
+		<label>Liverpool FC UEFA Champions league statistics</label>
+		<table>
+			<tr>
+				<th>Match day</th>
+				<th>Date</th>
+				<th>Game</th>
+				<th>Result</th>
+				<th>Outcome</th>
+			</tr>
+			<tr ng-repeat="x in clData">
+				<td>{{ x.matchday }}</td>
+				<td>{{ x.matchDate.split('T')[0] }}</td>
+				<td>{{ x.host ? ('Liverpool FC - ' + x.opponent) : (x.opponent
+					+ ' - Liverpool FC') }}</td>
+				<td>{{ x.homeTeamScore + ' - ' + x.awayTeamScore }}</td>
+				<td>{{ x.outcome }}</td>
+			</tr>
+		</table>
+		<pie-chart chart-data="clData"></pie-chart>
 	</div>
 </body>
 </html>

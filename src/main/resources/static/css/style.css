@@ -1,21 +1,34 @@
 .chart {
-    background: #eee;
-    padding: 3px;
+	background: #eee;
+	padding: 3px;
 }
 
 .chart div {
-  width: 0;
-  transition: all 1s ease-out;
-  -moz-transition: all 1s ease-out;
-  -webkit-transition: all 1s ease-out;
+	width: 0;
+	transition: all 1s ease-out;
+	-moz-transition: all 1s ease-out;
+	-webkit-transition: all 1s ease-out;
 }
 
 .chart div {
-  font: 12px sans-serif;
-  background-color: red;
-  text-align: right;
-  padding: 3px;
-  margin: 5px;
-  color: white;
-  box-shadow: 2px 2px 2px #666;
+	font: 12px sans-serif;
+	background-color: red;
+	text-align: right;
+	padding: 3px;
+	margin: 5px;
+	color: white;
+	box-shadow: 2px 2px 2px #666;
+}
+
+table {
+	width: 100%;
+	border: 1px solid black
+}
+
+th {
+	border: 1px solid black
+}
+
+td {
+	border: 1px solid black
 }

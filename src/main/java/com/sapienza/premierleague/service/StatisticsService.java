@@ -20,7 +20,7 @@ import org.springframework.web.client.RestTemplate;
 
 import org.springframework.beans.factory.annotation.Value;
 
-import com.sapienza.premierleague.model.MatchResult;
+import com.sapienza.premierleague.model.MatchOutcome;
 import com.sapienza.premierleague.model.StatisticsDTO;
 
 @Service
@@ -58,7 +58,7 @@ public class StatisticsService {
 			boolean hasDrawn = false;
 			boolean notPlayed = false;
 			boolean isHost = false;
-			String oponent = "";
+			String opponent = "";
 
 			Object matchesFields = parser.parse(matches.get(i).toString());
 
@@ -92,7 +92,7 @@ public class StatisticsService {
 				} else if (winner.equals("")) {
 					notPlayed = true;
 				}
-				oponent = awayTeamName;
+				opponent = awayTeamName;
 				isHost = true;
 			} else {
 				if (winner.equals("AWAY_TEAM")) {
@@ -102,7 +102,7 @@ public class StatisticsService {
 				} else if (winner.equals("")) {
 					notPlayed = true;
 				}
-				oponent = homeTeamName;
+				opponent = homeTeamName;
 			}
 
 			JSONObject competitionObject = (JSONObject) competitions;
@@ -115,11 +115,11 @@ public class StatisticsService {
 			Format formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
 			Date matchDate = (Date) ((DateFormat) formatter).parse((String) matchesFieldsObject.get("utcDate"));
 
-			matchesList
-					.add(StatisticsDTO.builder().oponent(oponent).competition(competitionName).matchday(actualMatchDay)
+			matchesList.add(
+					StatisticsDTO.builder().opponent(opponent).competition(competitionName).matchday(actualMatchDay)
 							.matchDate(matchDate).homeTeamScore(homeTeamScore).awayTeamScore(awayTeamScore)
-							.result(notPlayed ? MatchResult.NOT_PLAYED_YET
-									: (hasWon ? MatchResult.WIN : (hasDrawn ? MatchResult.DRAW : MatchResult.LOSS)))
+							.outcome(notPlayed ? MatchOutcome.NOT_PLAYED_YET
+									: (hasWon ? MatchOutcome.WIN : (hasDrawn ? MatchOutcome.DRAW : MatchOutcome.LOSS)))
 							.host(isHost).build());
 		}
 

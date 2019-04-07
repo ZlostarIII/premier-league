@@ -11,10 +11,23 @@
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
 <script src="../js/goal-scorers.js" charset="utf-8"></script>
 <body>
+	<div>
+		<a href="home">Home</a>
+	</div>
+	<br>
 	<div ng-app="goalScorers" ng-controller="GoalScorersCtrl">
-		<ul>
-			<li ng-repeat="x in myData">{{ x.name + ' - '+ x.teamName }}</li>
-		</ul>
+		<table>
+			<tr>
+				<th>Player name</th>
+				<th>Team</th>
+				<th>Goals</th>
+			</tr>
+			<tr ng-repeat="x in myData">
+				<td>{{ x.name }}</td>
+				<td>{{ x.teamName }}</td>
+				<td>{{ x.goals }}</td>
+			</tr>
+		</table>
 		<bars-chart chart-data="myData"></bars-chart>
 	</div>
 </body>
