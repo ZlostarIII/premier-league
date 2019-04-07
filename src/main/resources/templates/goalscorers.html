@@ -2,46 +2,20 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Premier League top goalscorers</title>
+<title>Premier League Top 10 goalscorers</title>
 </head>
-<link rel="stylesheet" type="text/css" media="all" href="../../../css/style.css" th:href="@{/css/style.css}" />
+<link rel="stylesheet" type="text/css" media="all"
+	href="../../../css/style.css" th:href="@{/css/style.css}" />
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
-<script>
-var app=angular.module('myApp', []);
-app.controller('Ctrl', function($scope, $http) {
-	  $http.get("http://localhost:8080/plgoalscorers").then(function (response) {
-	      $scope.myData = response.data;
-	  });
-	});
-app.directive('barsChart', function ($parse,$timeout,$compile) {
-  var directiveDefinitionObject = {
-      restrict: 'E',
-      replace: false,
-      scope: {data: '=chartData'},
-      link: function (scope, element, attrs) {
-    	$timeout(function() {
-        	  var chart = d3.select(element[0]);
-              chart.append("div").attr("class", "chart")
-               .selectAll('div')
-               .data(scope.data).enter().append("div")
-               .transition().ease("elastic")
-               .style("width", function(d) { return d.goals + "%"; })
-               .text(function(d) { return d.name + " - " + d.goals + " goals"; });
-        	},2000); 
-      } 
-   };
-   return directiveDefinitionObject;
-});
-</script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+<script src="../js/goal-scorers.js" charset="utf-8"></script>
 <body>
-<div ng-app="myApp" ng-controller="Ctrl">
-<ul>
-  <li ng-repeat="x in myData">
-    {{ x.name + ' - '+ x.teamName }}
-  </li>
-</ul>
-    <bars-chart chart-data="myData"  ></bars-chart>
-</div>
+	<div ng-app="goalScorers" ng-controller="GoalScorersCtrl">
+		<ul>
+			<li ng-repeat="x in myData">{{ x.name + ' - '+ x.teamName }}</li>
+		</ul>
+		<bars-chart chart-data="myData"></bars-chart>
+	</div>
 </body>
 </html>
