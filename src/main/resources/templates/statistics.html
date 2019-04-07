@@ -34,9 +34,16 @@
 				<td>{{ x.outcome }}</td>
 			</tr>
 		</table>
-		<pie-chart chart-data="plData"></pie-chart>
 		<br>
-		
+		<div pie-chart="" style="width:100%;height:460px;" data="plOutcomeData">
+			<label>Legend:</label>
+			<label style="background-color:#4286f4">Wins</label>
+			<label style="background-color:#2faf44">Draws</label>
+			<label style="background-color:#f44161">Losses</label>
+			<label style="background-color:#f4cd41">Not played yet</label>
+		</div>
+		<br>
+		<br>
 		<label>Liverpool FC UEFA Champions league statistics</label>
 		<table>
 			<tr>
@@ -55,7 +62,14 @@
 				<td>{{ x.outcome }}</td>
 			</tr>
 		</table>
-		<pie-chart chart-data="clData"></pie-chart>
+		<br>
+		<div pie-chart="" style="width:100%;height:460px;" data="clOutcomeData">
+			<label>Legend</label>
+			<label style="background-color:#4286f4">Wins</label>
+			<label style="background-color:#2faf44">Draws</label>
+			<label style="background-color:#f44161">Losses</label>
+			<label style="background-color:#f4cd41">Not played yet</label>
+		</div>
 	</div>
 </body>
 </html>

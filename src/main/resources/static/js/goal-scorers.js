@@ -1,9 +1,11 @@
 var app = angular.module('goalScorers', []);
+
 app.controller('GoalScorersCtrl', function($scope, $http) {
 	$http.get("http://localhost:8080/plgoalscorers").then(function(response) {
 		$scope.myData = response.data;
 	});
 });
+
 app.directive('barsChart', function($parse, $timeout, $compile) {
 	var tooltip = d3.select("body").append("div").style("position", "absolute")
 			.style("z-index", "10").style("visibility", "hidden");
