@@ -21,7 +21,7 @@ public class GoalscorersController {
 	private GoalscorersService goalscorersService;
 
 	@GetMapping("")
-	public ResponseEntity<List<GoalscorerDTO>> getAllGoalscorers() throws IOException, ParseException {
+	public ResponseEntity<List<GoalscorerDTO>> getAllGoalscorers() throws ParseException {
 		return ResponseEntity.ok(goalscorersService.getGoalscorers());
 	}
 }

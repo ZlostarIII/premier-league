@@ -22,7 +22,7 @@ public class StatisticsController {
 
 	@GetMapping("")
 	public ResponseEntity<List<StatisticsDTO>> getAllGoalscorers()
-			throws IOException, ParseException, java.text.ParseException {
+			throws ParseException, java.text.ParseException {
 		return ResponseEntity.ok(statisticsService.getLiverpoolStatistics());
 	}
 }

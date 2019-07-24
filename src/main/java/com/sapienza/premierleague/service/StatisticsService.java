@@ -1,6 +1,5 @@
 package com.sapienza.premierleague.service;
 
-import java.io.IOException;
 import java.text.DateFormat;
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -37,7 +36,7 @@ public class StatisticsService {
 	@Value("${app.team.name}")
 	private String teamName;
 
-	public List<StatisticsDTO> getLiverpoolStatistics() throws IOException, ParseException, java.text.ParseException {
+	public List<StatisticsDTO> getLiverpoolStatistics() throws ParseException, java.text.ParseException {
 		HttpHeaders headers = new HttpHeaders();
 		headers.set(tokenName, tokenValue);
 		HttpEntity<?> entity = new HttpEntity<>(headers);

@@ -1,5 +1,6 @@
 package com.sapienza.premierleague.service;
 
+import com.sapienza.premierleague.model.GoalscorerDTO;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -11,9 +12,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.sapienza.premierleague.model.GoalscorerDTO;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,14 +26,14 @@ public class GoalscorersService {
 	@Value("${app.token.value}")
 	private String tokenValue;
 
-	public List<GoalscorerDTO> getGoalscorers() throws IOException, ParseException {
+	public List<GoalscorerDTO> getGoalscorers() throws ParseException {
 		HttpHeaders headers = new HttpHeaders();
 		headers.set(tokenName, tokenValue);
 		HttpEntity<?> entity = new HttpEntity<>(headers);
 
 		restTemplate = new RestTemplate();
 		HttpEntity<String> requestJson = restTemplate.exchange(
-				"https://api.football-data.org/v2/competitions/PL/scorers", HttpMethod.GET, entity, String.class);
+				"https://api.football-data.org/v2/competitions/PL/scorers?season=2018", HttpMethod.GET, entity, String.class);
 
 		JSONParser parser = new JSONParser();
 		Object obj = parser.parse(requestJson.getBody());
